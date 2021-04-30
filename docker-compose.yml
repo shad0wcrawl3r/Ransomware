@@ -11,6 +11,7 @@ services:
                 volumes:
                         - 'data-sandbox:/root/Documents'
                         - 'encryp:/opt/encrypted'
+                        - './client/client.py:/root/client.py'
                 networks:
                         sandboxed:
                                 ipv4_address: 192.168.213.3
@@ -19,6 +20,8 @@ services:
                 container_name: server
                 environment:
                         - TZ=Asia/Kathmandu
+                volumes:
+                        - './server/server.py:/root/server.py'
                 networks:
                         sandboxed:
                                 ipv4_address: 192.168.213.4
