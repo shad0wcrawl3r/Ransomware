@@ -13,7 +13,7 @@ services:
                         - 'encryp:/opt/encrypted'
                 networks:
                         sandboxed:
-                                ipv4_address: 191.168.213.3
+                                ipv4_address: 192.168.213.3
         server:
                 build: ./server/
                 container_name: server
