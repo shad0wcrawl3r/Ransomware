@@ -1,4 +1,4 @@
-version: 3
+version: '3'
 volumes:
         data-sandbox: {}
         encryp: {}
@@ -17,14 +17,14 @@ services:
         server:
                 build: ./server/
                 container_name: server
-                environtment:
+                environment:
                         - TZ=Asia/Kathmandu
                 networks:
                         sandboxed:
                                 ipv4_address: 192.168.213.4
 
 
-network:
+networks:
         sandboxed:
                 driver: bridge
                 ipam:
