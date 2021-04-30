@@ -1,0 +1,34 @@
+version: 3
+volumes:
+        data-sandbox: {}
+        encryp: {}
+services:
+        sandbox:
+                build: ./client/
+                container_name: sandbox
+                environment:
+                        - TZ=Asia/Kathmandu
+                volumes:
+                        - 'data-sandbox:/root/Documents'
+                        - 'encryp:/opt/encrypted'
+                networks:
+                        sandboxed:
+                                ipv4_address: 191.168.213.3
+        server:
+                build: ./server/
+                container_name: server
+                environtment:
+                        - TZ=Asia/Kathmandu
+                networks:
+                        sandboxed:
+                                ipv4_address: 192.168.213.4
+
+
+network:
+        sandboxed:
+                driver: bridge
+                ipam:
+                        driver: default
+                        config:
+                                - subnet: 192.168.213.0/29
+
