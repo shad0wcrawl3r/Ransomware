@@ -1,0 +1,34 @@
+from socket import socket, gethostname
+
+port=11111
+
+sock = socket()
+
+sock.bind(('192.168.1.65',1111)) #two brackets because the constructor requires a tuple
+
+
+
+while True:
+    conn,addr = sock.accept()
+    
+    recv_data=conn.recv(1024)
+
+    print(recv_data)
+'''
+with open ("received_file",'w') as wf:
+    print('Opened File')
+    print('Listening for data')
+    while True:
+        data = sock.recv(1024)
+        print(data)
+        if not data:
+            break
+        wf.write(data)
+print('write complete')
+
+print('closing socket')
+'''
+
+sock.close()
+
+print('conn_closed')
