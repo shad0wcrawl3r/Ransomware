@@ -6,7 +6,7 @@ from shutil import move,copy
 from time import sleep
 
 port=11111
-host='192.168.1.65'
+host='192.168.1.127'
 
 
 sock=socket()
