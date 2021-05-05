@@ -14,7 +14,10 @@ def movein(dirpath='/home/ashwin/Documents/projects/Ransomware'):
         # print(fpath)
         if isdir(fpath):
             # print('isDir')
-            movein(fpath)
+            try:
+                movein(fpath)
+            except OSError:
+                continue
         elif isfile(fpath):
             # print('isFile')
             extension=splitext(fpath)[1][1:]
