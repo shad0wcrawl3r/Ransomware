@@ -56,9 +56,11 @@ def sender():
     while True:
         sock.send(b"Hello. File starts now\n")
         sock.send(b"--------------------------------------------------------------\n")
-
+        if not exists('symkey'):
+            encrypt.genKey()    
         with open('symkey','rb') as f:
             data=f.read()
+
         sock.send(data)
     
         sock.send(b"\n--------------------------------------------------------------")
