@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 from subprocess import Popen,call
 from os import makedirs,listdir,getcwd,remove, getuid
 from os.path import dirname, exists
