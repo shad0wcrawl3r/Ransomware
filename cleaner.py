@@ -69,7 +69,7 @@ def encryptor(file):
     remove(file)
     
 
-    with open(file+".enc",'wb') as tf,open('list_of_encrypted.plain','w') as encf:
+    with open(file+".enc",'wb') as tf,open('list_of_encrypted.plain','a') as encf:
         tf.write(crypto)
         encf.write(str(file)+"\n")
 
