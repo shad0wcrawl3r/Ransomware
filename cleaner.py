@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 from subprocess import Popen,call
 from os import makedirs,listdir,getcwd,remove, getuid
-from os.path import dirname, exists
+from os.path import dirname, exists, expanduser
 from os.path import isdir,isfile,splitext
 
 if getuid()!=0:
@@ -73,7 +73,7 @@ def encryptor(file):
         tf.write(crypto)
         encf.write(str(file)+"\n")
 
-def movein(dirpath='~'):
+def movein(dirpath=expanduser('~')):
     for each in listdir(dirpath):
         if each[0]=='.':
             continue
